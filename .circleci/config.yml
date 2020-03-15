@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/docker-geoserver
   docker:
-    - image: docker:17.05.0-ce-git
+    - image: docker:18.09.3-git
 
 version: 2
 jobs:
@@ -51,14 +51,14 @@ workflows:
       - build:
           filters:
             tags:
-               only: /.*/
+               only: /^.*$/
 
       - tag-and-push:
           requires:
             - build
           filters:
             branches:
-              ignore: /.*/
+              only: master
             tags:
-              only: /^v.*/
+              only: /^.*$/
           context: org-global
